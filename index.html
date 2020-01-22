@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,10 +22,11 @@
 <body translate="no">
 <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-\( 2^3 \)
-<div>
-\( \sqrt[3]{8} = 8^{\frac{1}{3}} = 2 \)
-</div>
+<audio id="wrong" controls>
+<source src="https://raw.githubusercontent.com/SebastianByrne/AACoding02/master/snd/wrong.mp3" type="audio/mpeg">
+</audio>
+<div>Timer: <span id="theTimer">0</span> Score: <span id="score">0</span></div>
+<form><input type=button value="reset" onClick="window.location.reload()"></form>
 <h1>Gary's 10 favorite math problems</h1>
 <ol>
 <li>\( \sqrt[3]{512} + \sqrt[3]{27} \)
@@ -58,23 +60,51 @@
 <li> \(\sqrt[2]{64}-8\sqrt[2]{9}\)
 <input data-correct="-16" < li>
 </div>
+<li> \(8^{\frac{4}{3}}+8\sqrt[2]{196}\)
+<input data-correct="128" < li>
+</div>
+<li>Factor: \(x^2 - 16 x + 64 \)&ensp;&ensp;
+<input data-correct="(x-8)(x-8)" < li>
+</div>
 </ol>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
 <script id="rendered-js">
+const sad = 
+document.getElementById("sad");
+  setInterval(onTimer, 1000);
+function onTimer() {
+  let theTimer = Number($("#theTimer").text());
+  theTimer = theTimer + 1;
+  $("#theTimer").text(theTimer);
+}
+
 $("input").change(onChange);
+
 function onChange(evt) {
   let correct = $(this).data("correct");
   let response = $(this).val();
-  console.log(correct, response);
-
   if (correct == response) {
+    let score = Number($("#score").text());
+    score = score + 1;
+    
+    $("#score").text(score);
+
     $(this)
       .removeClass("incorrect")
       .addClass("correct");
   } else{
+    
+    let score = Number($("#score").text());
+    score = score - 1;
+    
+    $("#score").text(score);
+    
         $(this)
       .removeClass("correct")
       .addClass("incorrect");
+    if (Math.random() > 0) {
+      wrong.play();
+    }
   }
 }
     </script>
